@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
+
+    <style type="text/css">
+     html, body {
+        overflow: hidden;
+        margin: auto;
+        height: 100%;
+        width: 100%;
+     }
+  </style>
+
     <meta charset="UTF-8"/>
     <title>Pagrindinis</title>
 
@@ -22,13 +32,14 @@
 
 
     <p th:if="${search != '' }">
-        <iframe src="ebay.html">
-    <p>Your browser does not support iframes.</p>
-    </iframe>
-    <iframe src="amazon.html">
-        <p>Your browser does not support iframes.</p>
-    </iframe>
+
     </p>
 </div>
+<iframe src="EBAYLIST.html" width="49%" height="100%" frameborder="0">
+    <p>Your browser does not support iframes.</p>
+</iframe>
+<iframe src="amazon.html"  width="49%" height="100%" frameborder="0">
+    <p>Your browser does not support iframes.</p>
+</iframe>
 </body>
 </html>

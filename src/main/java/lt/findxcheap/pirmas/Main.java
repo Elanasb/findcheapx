@@ -14,7 +14,7 @@ import java.io.IOException;
 
 @SpringBootApplication //<---Svarbiausia dalis
 public class Main {
-    private static String _failoVardasEbay = "ebay.html";
+    private static String _failoVardasEbay = "static/ebay.html";
     private static String _failoVardasAmazon = "amazon.html";
     private FileReader _in;
     private BufferedReader _bufferis;
@@ -25,7 +25,7 @@ public class Main {
 
         Main obj = new Main();
 
-        String search = "playstation 4";
+        String search = "";
         String webPageEbay = "https://www.ebay.com/sch/" + search;
         String webPageAmazon = "https://www.amazon.com/s/ref=nb_sb_noss_1?url=search-alias%3Daps&field-keywords=" + search;
         String docEbay = null;
