@@ -14,8 +14,7 @@ import java.io.IOException;
 
 @SpringBootApplication //<---Svarbiausia dalis
 public class Main {
-    private static String _failoVardasEbay = "static/ebay.html";
-    private static String _failoVardasAmazon = "amazon.html";
+
     private FileReader _in;
     private BufferedReader _bufferis;
     private FileWriter _out;
@@ -23,22 +22,22 @@ public class Main {
     public static void main(String[] args) {
         SpringApplication.run(Main.class, args);
 
-        Main obj = new Main();
-
-        String search = "";
-        String webPageEbay = "https://www.ebay.com/sch/" + search;
-        String webPageAmazon = "https://www.amazon.com/s/ref=nb_sb_noss_1?url=search-alias%3Daps&field-keywords=" + search;
-        String docEbay = null;
-        String docAmazon = null;
+//        Main obj = new Main();
+//
+//        String search = "";
+//        String webPageEbay = "https://www.ebay.com/sch/" + search;
+//        String webPageAmazon = "https://www.amazon.com/s/ref=nb_sb_noss_1?url=search-alias%3Daps&field-keywords=" + search;
+//        String docEbay = null;
+//        String docAmazon = null;
 
 
 
     }
 
 
-    public void atidarytiFaila(String failoVardas) {
+    public void atidarytiFaila(String failovardas) {
         try {
-            _in = new FileReader(failoVardas);
+            _in = new FileReader(failovardas);
             _bufferis = new BufferedReader(_in);
         } catch (Exception e) {
 
@@ -46,10 +45,10 @@ public class Main {
     }
 
 
-    public void irasimas(Elements s, String failoVardas) {
+    public void irasimas(Elements s, String failovardas) {
 
         try {
-            _out = new FileWriter(failoVardas, true);
+            _out = new FileWriter(failovardas, true);
             _out.write(String.valueOf(s));
             _out.close();
             System.out.println("Ivesta");
