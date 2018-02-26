@@ -43,11 +43,20 @@
     <!--<p>Your browser does not support iframes.</p>-->
 <!--</iframe>-->
 
+<!--<div>-->
+    <!--<div th:each="ebayItem: ${ebayItems}">-->
+        <!--<h1 th:text="${ebayItem.name}"></h1>-->
+        <!--<h1 th:text="${ebayItem.price}"></h1>-->
+        <!--<img th:src="${ebayItem.img}" />-->
+    <!--</div>-->
+
+<!--</div>-->
+
 <div>
-    <div th:each="ebayItem: ${ebayItems}">
-        <h1 th:text="${ebayItem.name}"></h1>
-        <h1 th:text="${ebayItem.price}"></h1>
-        <img th:src="${ebayItem.img}" />
+    <div th:each="amazonItem: ${amazonItems}">
+        <h1 th:text="${amazonItem.name}"></h1>
+        <h1 th:text="${amazonItem.price}"></h1>
+        <img th:src="${amazonItem.img}" />
     </div>
 
 </div>

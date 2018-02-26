@@ -47,7 +47,7 @@ public class ComparisonController {
         {
 
             docEbay = Jsoup.connect(webPageEbay).get();
-            docAmazon= Jsoup.connect(webPageAmazon).get();
+            docAmazon = Jsoup.connect(webPageAmazon).get();
 
 
             Elements ebayList = docEbay.select("#ListViewInner > li");
@@ -64,16 +64,28 @@ public class ComparisonController {
             }
 
 
-          
+            Elements amazonList = docAmazon.select("#s-results-list-atf");
+System.out.println(amazonList);
+//            Element ImageAmazon = amazonList.get(0).select("a > img").get(0);
+//            System.out.println(ImageAmazon);
+
+//            amazonItems = new ArrayList<ItemVO>();
+//            for (int i = 0; i < amazonList.size(); i++) {
+//                Element ImageAmazon = amazonList.get(i).select("a > img").get(0);
+//                Element TitleAmazon = amazonList.get(i).select("a > h2").get(0);
+//                Element PriceAmazon = amazonList.get(i).select("div.a-fixed-left-grid > div > div.a-fixed-left-grid-col.a-col-right > div:nth-child(2) > div.a-column.a-span7 > div:nth-child(2) > a > span.a-color-base.sx-zero-spacing > span").get(0);
+//                String StringTitleAmazon = TitleAmazon.text();
+//                String StringImageAmazon = ImageAmazon.attr("src");
+//                String StringPriceAmazon = PriceAmazon.text();
+//                amazonItems.add(new ItemVO(StringTitleAmazon, StringImageAmazon, StringPriceAmazon));
+//            }
 
 
-        } catch (
-                IOException e)
-
-        {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         model.addAttribute("ebayItems", ebayItems);
+        //   model.addAttribute("amazonItems", amazonItems);
 
         return "comparison";
 
