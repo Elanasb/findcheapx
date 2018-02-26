@@ -44,7 +44,7 @@ public class ComparisonController {
         Document docEbay = null;
         Document docAmazon = null;
         Document docBB = null;
-
+        int dydis;
         try
 
         {
@@ -55,9 +55,19 @@ public class ComparisonController {
 
 
             Elements ebayList = docEbay.select("#ListViewInner > li");
+            Elements BestBuyList = docBB.select("#resultsTabPanel > div.list-items > div");
 
             ebayItems = new ArrayList<ItemVO>();
-            for (int i = 0; i < 3; i++) {
+            BestBuyItems = new ArrayList<ItemVO>();
+
+            if (ebayList.size() > BestBuyList.size()) {
+                dydis = BestBuyList.size();
+            } else {
+                dydis = ebayList.size();
+            }
+
+
+            for (int i = 0; i < dydis; i++) {
                 Element Image = ebayList.get(i).select("a > img").get(0);
                 Element Title = ebayList.get(i).select(" h3 > a").get(0);
                 Element Price = ebayList.get(i).select("ul.lvprices.left.space-zero > li.lvprice.prc").get(0);
@@ -68,13 +78,8 @@ public class ComparisonController {
             }
 
 
-            Elements BestBuyList = docBB.select("#resultsTabPanel > div.list-items > div");
-
-            System.out.println(BestBuyList.size());
-
-            BestBuyItems = new ArrayList<ItemVO>();
-            for (int i = 0; i < BestBuyList.size(); i++) {
-                Element ImageBestBuy = BestBuyList.get(i).select("div > a").get(0);
+            for (int i = 0; i < dydis; i++) {
+                Element ImageBestBuy = BestBuyList.get(i).select("div.list-item-thumbnail > div > a > img").get(0);
                 Element TitleBestBuy = BestBuyList.get(i).select("div.sku-title > h4 > a").get(0);
                 Element PriceBestBuy = BestBuyList.get(i).select("div.pb-hero-price.pb-purchase-price > span").get(0);
                 String StringTitleBestBuy = TitleBestBuy.text();
@@ -87,7 +92,7 @@ public class ComparisonController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-     //   model.addAttribute("ebayItems", ebayItems);
+        model.addAttribute("ebayItems", ebayItems);
         model.addAttribute("BestBuyItems", BestBuyItems);
 
         return "comparison";

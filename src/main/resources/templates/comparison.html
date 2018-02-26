@@ -22,6 +22,8 @@
 
 
 
+
+
     </style>
 
     <meta charset="UTF-8"/>
@@ -59,6 +61,8 @@ body {
     clear: both;
 }
 
+
+
     </style>
 </head>
 <body>
@@ -77,32 +81,23 @@ body {
 </div>
 <div class="row">
     <div class="column" style="background-color:#aaa;">
-        <h2>Ebay</h2>
+        <img src= "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/EBay_former_logo.svg/2000px-EBay_former_logo.svg.png" width="130" height="75">
         <div th:each="ebayItem: ${ebayItems}">
             <h1 th:text="${ebayItem.name}"></h1>
-            <h1 th:text="${ebayItem.price}"></h1>
             <img th:src="${ebayItem.img}"/>
+            <h1 th:text="${ebayItem.price}"></h1>
         </div>
     </div>
     <div class="column" style="background-color:#bbb;">
-        <h2>Best Buy</h2>
+        <img src= "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Best_Buy_Logo.svg/1200px-Best_Buy_Logo.svg.png" width="130" height="75">
         <div th:each="BestBuyItems: ${BestBuyItems}">
             <h1 th:text="${BestBuyItems.name}"></h1>
-            <h1 th:text="${BestBuyItems.price}"></h1>
             <img th:src="${BestBuyItems.img}"/>
+            <h1 th:text="${BestBuyItems.price}"></h1>
         </div>
     </div>
-
-
-    <div>
-
-
-    </div>
-
-    <div>
-
-
-    </div>
+</div>
+<hr>
 
 
 </body>
