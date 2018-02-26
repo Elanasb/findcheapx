@@ -22,6 +22,7 @@ public class ComparisonController {
 
     public ArrayList<ItemVO> ebayItems = new ArrayList<ItemVO>();
     public ArrayList<ItemVO> amazonItems = new ArrayList<ItemVO>();
+    public ArrayList<ItemVO> BestBuyItems = new ArrayList<ItemVO>();
 
     @RequestMapping("/comparison")
     String index(
@@ -38,9 +39,11 @@ public class ComparisonController {
 
         //logika
         String webPageEbay = "https://www.ebay.com/sch/" + search;
-        String webPageAmazon = "https://www.amazon.com/s/ref=nb_sb_noss_1?url=search-alias%3Daps&field-keywords=" + search;
+        String webPageAmazon = "https://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=" + search;
+        String webPageBestBuy = "https://www.bestbuy.com/site/searchpage.jsp?st=" + search + "&_dyncharset=UTF-8&id=pcat17071&type=page&sc=Global&cp=1&nrp=&sp=&qp=&list=n&af=true&iht=y&usc=All+Categories&ks=960&keys=keys";
         Document docEbay = null;
         Document docAmazon = null;
+        Document docBB = null;
 
         try
 
@@ -48,12 +51,13 @@ public class ComparisonController {
 
             docEbay = Jsoup.connect(webPageEbay).get();
             docAmazon = Jsoup.connect(webPageAmazon).get();
+            docBB = Jsoup.connect(webPageBestBuy).get();
 
 
             Elements ebayList = docEbay.select("#ListViewInner > li");
 
             ebayItems = new ArrayList<ItemVO>();
-            for (int i = 0; i < ebayList.size(); i++) {
+            for (int i = 0; i < 3; i++) {
                 Element Image = ebayList.get(i).select("a > img").get(0);
                 Element Title = ebayList.get(i).select(" h3 > a").get(0);
                 Element Price = ebayList.get(i).select("ul.lvprices.left.space-zero > li.lvprice.prc").get(0);
@@ -64,28 +68,27 @@ public class ComparisonController {
             }
 
 
-            Elements amazonList = docAmazon.select("#s-results-list-atf");
-System.out.println(amazonList);
-//            Element ImageAmazon = amazonList.get(0).select("a > img").get(0);
-//            System.out.println(ImageAmazon);
+            Elements BestBuyList = docBB.select("#resultsTabPanel > div.list-items > div");
 
-//            amazonItems = new ArrayList<ItemVO>();
-//            for (int i = 0; i < amazonList.size(); i++) {
-//                Element ImageAmazon = amazonList.get(i).select("a > img").get(0);
-//                Element TitleAmazon = amazonList.get(i).select("a > h2").get(0);
-//                Element PriceAmazon = amazonList.get(i).select("div.a-fixed-left-grid > div > div.a-fixed-left-grid-col.a-col-right > div:nth-child(2) > div.a-column.a-span7 > div:nth-child(2) > a > span.a-color-base.sx-zero-spacing > span").get(0);
-//                String StringTitleAmazon = TitleAmazon.text();
-//                String StringImageAmazon = ImageAmazon.attr("src");
-//                String StringPriceAmazon = PriceAmazon.text();
-//                amazonItems.add(new ItemVO(StringTitleAmazon, StringImageAmazon, StringPriceAmazon));
-//            }
+            System.out.println(BestBuyList.size());
+
+            BestBuyItems = new ArrayList<ItemVO>();
+            for (int i = 0; i < BestBuyList.size(); i++) {
+                Element ImageBestBuy = BestBuyList.get(i).select("div > a").get(0);
+                Element TitleBestBuy = BestBuyList.get(i).select("div.sku-title > h4 > a").get(0);
+                Element PriceBestBuy = BestBuyList.get(i).select("div.pb-hero-price.pb-purchase-price > span").get(0);
+                String StringTitleBestBuy = TitleBestBuy.text();
+                String StringImageBestBuy = ImageBestBuy.attr("src");
+                String StringPriceBestBuy = PriceBestBuy.text();
+                BestBuyItems.add(new ItemVO(StringTitleBestBuy, StringImageBestBuy, StringPriceBestBuy));
+            }
 
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-        model.addAttribute("ebayItems", ebayItems);
-        //   model.addAttribute("amazonItems", amazonItems);
+     //   model.addAttribute("ebayItems", ebayItems);
+        model.addAttribute("BestBuyItems", BestBuyItems);
 
         return "comparison";
 

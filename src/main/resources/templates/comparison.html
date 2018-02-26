@@ -9,6 +9,17 @@
         height: 100%;
         width: 100%;
      }
+     .ib
+  // These are aesthetic styles. Red = bad
+  background: salmon
+  border: solid red 1px
+  // Overrides default display (which would be block)
+  display: inline-block
+
+
+
+
+
 
 
     </style>
@@ -23,7 +34,31 @@
     <link href="searchbar.css" rel="stylesheet"/>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <style>
+* {
+    box-sizing: border-box;
+}
 
+body {
+    margin: 20px;
+}
+
+/* Create two equal columns that floats next to each other */
+.column {
+    float: left;
+    width: 50%;
+    padding: 10px;
+
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+    </style>
 </head>
 <body>
 
@@ -39,27 +74,34 @@
 
     </p>
 </div>
-<!--<iframe id="ebay" src="ebay.html" width="49%" height="100%" frameborder="0">-->
-    <!--<p>Your browser does not support iframes.</p>-->
-<!--</iframe>-->
-
-<!--<div>-->
-    <!--<div th:each="ebayItem: ${ebayItems}">-->
-        <!--<h1 th:text="${ebayItem.name}"></h1>-->
-        <!--<h1 th:text="${ebayItem.price}"></h1>-->
-        <!--<img th:src="${ebayItem.img}" />-->
-    <!--</div>-->
-
-<!--</div>-->
-
-<div>
-    <div th:each="amazonItem: ${amazonItems}">
-        <h1 th:text="${amazonItem.name}"></h1>
-        <h1 th:text="${amazonItem.price}"></h1>
-        <img th:src="${amazonItem.img}" />
+<div class="row">
+    <div class="column" style="background-color:#aaa;">
+        <h2>Ebay</h2>
+        <div th:each="ebayItem: ${ebayItems}">
+            <h1 th:text="${ebayItem.name}"></h1>
+            <h1 th:text="${ebayItem.price}"></h1>
+            <img th:src="${ebayItem.img}"/>
+        </div>
+    </div>
+    <div class="column" style="background-color:#bbb;">
+        <h2>Best Buy</h2>
+        <div th:each="BestBuyItems: ${BestBuyItems}">
+            <h1 th:text="${BestBuyItems.name}"></h1>
+            <h1 th:text="${BestBuyItems.price}"></h1>
+            <img th:src="${BestBuyItems.img}"/>
+        </div>
     </div>
 
-</div>
+
+    <div>
+
+
+    </div>
+
+    <div>
+
+
+    </div>
 
 
 </body>
