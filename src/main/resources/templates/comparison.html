@@ -8,6 +8,7 @@
         margin: auto;
         height: 100%;
         width: 100%;
+
      }
      .ib
   // These are aesthetic styles. Red = bad
@@ -74,24 +75,55 @@ body {
 
 <div class="container">
 
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+            <div id="imaginary_container">
+                <div class="input-group stylish-input-group">
+                    <form action="#" th:action="@{/comparison}"  method="get">
+                        <input type="text" name="search" id="search" th:value="${search}"/>
+                        <span class="input-group-addon">
+                        <button type="submit">
+
+                            <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                    </span>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <p th:if="${search != '' }">
 
     </p>
 </div>
+
 <div class="row">
     <div class="column" style="background-color:#aaa;">
         <img src= "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/EBay_former_logo.svg/2000px-EBay_former_logo.svg.png" width="130" height="75">
-        <div th:each="ebayItem: ${ebayItems}">
-            <h1 th:text="${ebayItem.name}"></h1>
+        <div style ="height:400px" th:each="ebayItem: ${ebayItems}">
+            <br/>
+            <br/>
+            <br/>
+            <div style="inline-block" hight="50">
+                <hr class="between" />
+            </div>
+            <h1 th:utext="${ebayItem.name}"></h1>
             <img th:src="${ebayItem.img}"/>
             <h1 th:text="${ebayItem.price}"></h1>
         </div>
     </div>
     <div class="column" style="background-color:#bbb;">
         <img src= "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Best_Buy_Logo.svg/1200px-Best_Buy_Logo.svg.png" width="130" height="75">
-        <div th:each="BestBuyItems: ${BestBuyItems}">
-            <h1 th:text="${BestBuyItems.name}"></h1>
+        <div style ="height:400px" th:each="BestBuyItems: ${BestBuyItems}">
+            <br/>
+            <br/>
+            <br/>
+            <div style="inline-block" hight="50">
+                <hr class="between" />
+            </div>
+            <h1 th:utext="${BestBuyItems.name}"></h1>
             <img th:src="${BestBuyItems.img}"/>
             <h1 th:text="${BestBuyItems.price}"></h1>
         </div>

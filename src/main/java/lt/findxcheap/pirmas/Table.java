@@ -6,7 +6,7 @@ public class Table {
 
 
 
-    public void printValues(ArrayList<ItemVO> list)
+    public void printValues(ArrayList<ItemVo> list)
     {
         // list- the custom arraylist is sent from
         // previous function
