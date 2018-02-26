@@ -4,7 +4,7 @@
 
     <style type="text/css">
      html, body {
-        overflow: hidden;
+
         margin: auto;
         height: 100%;
         width: 100%;
@@ -39,10 +39,18 @@
 
     </p>
 </div>
-<iframe id="ebay" src="ebay.html" width="49%" height="100%" frameborder="0">
-    <p>Your browser does not support iframes.</p>
-</iframe>
+<!--<iframe id="ebay" src="ebay.html" width="49%" height="100%" frameborder="0">-->
+    <!--<p>Your browser does not support iframes.</p>-->
+<!--</iframe>-->
 
+<div>
+    <div th:each="ebayItem: ${ebayItems}">
+        <h1 th:text="${ebayItem.name}"></h1>
+        <h1 th:text="${ebayItem.price}"></h1>
+        <img th:src="${ebayItem.img}" />
+    </div>
+
+</div>
 
 
 </body>

@@ -1,8 +1,7 @@
 package lt.findxcheap.pirmas.controller;
 
-import javafx.scene.control.Tab;
+import com.sun.xml.internal.ws.util.Pool;
 import lt.findxcheap.pirmas.ItemVO;
-import lt.findxcheap.pirmas.Main;
 import lt.findxcheap.pirmas.Table;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -13,9 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -24,6 +20,8 @@ public class ComparisonController {
     public static final String FailovardasEbay = "src/main/resources/templates/ebay.html";
     public static final String FailovardasAmazon = "src/main/resources/templates/amazon.html";
 
+    public ArrayList<ItemVO> ebayItems = new ArrayList<ItemVO>();
+    public ArrayList<ItemVO> amazonItems = new ArrayList<ItemVO>();
 
     @RequestMapping("/comparison")
     String index(
@@ -40,29 +38,33 @@ public class ComparisonController {
 
         //logika
         String webPageEbay = "https://www.ebay.com/sch/" + search;
-        //  String webPageAmazon = "https://www.amazon.com/s/ref=nb_sb_noss_1?url=search-alias%3Daps&field-keywords=" + search;
-        String docEbay = null;
-        //   String docAmazon = null;
+        String webPageAmazon = "https://www.amazon.com/s/ref=nb_sb_noss_1?url=search-alias%3Daps&field-keywords=" + search;
+        Document docEbay = null;
+        Document docAmazon = null;
 
         try
 
         {
 
-            docEbay = Jsoup.connect(webPageEbay).get().html();
-
-            Document eb = Jsoup.parse(docEbay);
-            Elements ebayList = eb.select("#ListViewInner > li");
+            docEbay = Jsoup.connect(webPageEbay).get();
+            docAmazon= Jsoup.connect(webPageAmazon).get();
 
 
-            Element Image = ebayList.get(0).select("a > img").get(0);
-            Element Title = ebayList.get(0).select(" h3 > a").get(0);
-            Element Price = ebayList.get(0).select("ul.lvprices.left.space-zero > li.lvprice.prc").get(0);
+            Elements ebayList = docEbay.select("#ListViewInner > li");
 
-            Table tab = new Table();
-            tab.item.add(new ItemVO(Image,Title,Price));
+            ebayItems = new ArrayList<ItemVO>();
+            for (int i = 0; i < ebayList.size(); i++) {
+                Element Image = ebayList.get(i).select("a > img").get(0);
+                Element Title = ebayList.get(i).select(" h3 > a").get(0);
+                Element Price = ebayList.get(i).select("ul.lvprices.left.space-zero > li.lvprice.prc").get(0);
+                String StringTitle = Title.text();
+                String StringImage = Image.attr("src");
+                String StringPrice = Price.text();
+                ebayItems.add(new ItemVO(StringTitle, StringImage, StringPrice));
+            }
 
 
-
+          
 
 
         } catch (
@@ -71,7 +73,7 @@ public class ComparisonController {
         {
             e.printStackTrace();
         }
-
+        model.addAttribute("ebayItems", ebayItems);
 
         return "comparison";
 

@@ -1,16 +1,15 @@
 package lt.findxcheap.pirmas;
 
-import org.jsoup.nodes.Element;
 
 public class ItemVO {
-    public Element name;
-    public Element img;
-    public Element price;
+    public String name;
+    public String img;
+    public String price;
 
 
-    public ItemVO(Element image, Element title, Element price) {
+    public ItemVO(String name, String img, String price) {
+        this.name = name;
+        this.img = img;
         this.price = price;
-        this.img = image;
-        this.name = title;
     }
 }

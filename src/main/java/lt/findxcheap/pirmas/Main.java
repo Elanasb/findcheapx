@@ -35,28 +35,5 @@ public class Main {
     }
 
 
-    public void atidarytiFaila(String failovardas) {
-        try {
-            _in = new FileReader(failovardas);
-            _bufferis = new BufferedReader(_in);
-        } catch (Exception e) {
 
-        }
-    }
-
-
-    public void irasimas(Elements s, String failovardas) {
-
-        try {
-            _out = new FileWriter(failovardas, true);
-            _out.write(String.valueOf(s));
-            _out.close();
-            System.out.println("Ivesta");
-
-            _out.close();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 }
