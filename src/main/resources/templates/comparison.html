@@ -28,6 +28,8 @@
 
 
 
+
+
     </style>
 
     <meta charset="UTF-8"/>
@@ -47,7 +49,7 @@
 
 
 .body{
-margin:10px;
+margin:20px;
 }
 /* Create two equal columns that floats next to each other */
 .column {
@@ -88,8 +90,27 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eaeaea', end
 
 border-radius: 50px;
 }
+
 .between{
 background-color: black;
+}
+
+.row{
+margin:10px;
+}
+hr{
+color: black;
+background-color: black;
+height: 1px;
+}
+
+.headerDivider {
+     border-left:1px solid #38546d;
+     border-right:1px solid #16222c;
+     height:80px;
+     position:absolute;
+     right:249px;
+     top:10px;
 }
 
 
@@ -97,8 +118,14 @@ background-color: black;
 </head>
 <body>
 
-<center><img src="https://cdn.shopify.com/tools/logo-maker/show/RnRYQmRsZkVKaFFLZG1yYmJQTVlRUT09LS1sRGtjcmpUM1N3NVNiai9zeHF6MmdnPT0=--391632ec2cee28c76e2fc903aaf4ecb764b77f2a_1000x.svg.png" width="300"></center>
+<center>
+    <a href="/">
+        <img src="https://cdn.shopify.com/tools/logo-maker/show/RnRYQmRsZkVKaFFLZG1yYmJQTVlRUT09LS1sRGtjcmpUM1N3NVNiai9zeHF6MmdnPT0=--391632ec2cee28c76e2fc903aaf4ecb764b77f2a_1000x.svg.png"
+             width="300"/>
+    </a>
 
+
+</center>
 
 
 <div class="container">
@@ -127,30 +154,31 @@ background-color: black;
     </p>
 </div>
 
-<div  id="grad1" class="row">
-    <div class="column" >
+<div id="grad1" class="row">
+    <div class="column" th:if="${ebayItems.size()>0}" >
         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/EBay_former_logo.svg/2000px-EBay_former_logo.svg.png"
              width="130" height="75">
         <div style="height:500px" th:each="ebayItem: ${ebayItems}">
             <br/>
             <br/>
             <br/>
-            <div style="inline-block" hight="50" >
-                <hr class="between" />
+            <div style="inline-block" height="50px">
+                <hr class="between"/>
             </div>
             <h1 th:utext="${ebayItem.name}"></h1>
             <img th:src="${ebayItem.img}"/>
             <h1 th:text="${ebayItem.price}"></h1>
         </div>
     </div>
-    <div class="column" >
+
+    <div class="column" th:if="${BestBuyItems.size()>0}">
         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Best_Buy_Logo.svg/1200px-Best_Buy_Logo.svg.png"
              width="130" height="75">
         <div style="height:500px" th:each="BestBuyItems: ${BestBuyItems}">
             <br/>
             <br/>
             <br/>
-            <div style="inline-block" hight="50">
+            <div style="inline-block" height="50px">
                 <hr class="between"/>
             </div>
             <h1 th:utext="${BestBuyItems.name}"></h1>

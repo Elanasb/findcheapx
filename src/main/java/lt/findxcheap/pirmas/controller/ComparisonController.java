@@ -45,7 +45,10 @@ public class ComparisonController {
         Document docEbay = null;
         Document docAmazon = null;
         Document docBB = null;
-        int dydis;
+        int dydis = 20;
+        int ebayDydis;
+        int BestDydis;
+
         try
 
         {
@@ -60,37 +63,51 @@ public class ComparisonController {
             ebayItems = new ArrayList<ItemVO>();
             BestBuyItems = new ArrayList<ItemVO>();
 
-            if (ebayList.size() > BestBuyList.size()) {
-                dydis = BestBuyList.size();
-            } else {
-                dydis = ebayList.size();
-            }
 
 
-            for (int i = 0; i < 20; i++) {
-                Element Image = ebayList.get(i).select("a > img").get(0);
+
+
+
+            for (int i = 0; i < ebayList.size() && i<20 ; i++) {
+                Element Image = null;
+                if (ebayList.get(i).select("a > img").size() > 0) {
+                    Image = ebayList.get(i).select("a > img").get(0);
+                } else {
+                    continue;
+                }
                 Element Title = ebayList.get(i).select(" h3 > a").get(0);
                 Element Price = ebayList.get(i).select("ul.lvprices.left.space-zero > li.lvprice.prc").get(0);
+                Title.attr("rel", "nofollow").attr("target", "_blank");
                 String StringTitle = String.valueOf(Title);
-                String StringImage = Image.attr("src");
+                String StringImage = "";
+                if (Image != null)
+                    StringImage = Image.attr("src");
                 String StringPrice = Price.text();
                 ebayItems.add(new ItemVO(StringTitle, StringImage, StringPrice));
             }
 
 
-            for (int i = 0; i < 20; i++) {
-                Element ImageBestBuy = BestBuyList.get(i).select("div.list-item-thumbnail > div > a > img").get(0);
+            for (int i = 0; i < BestBuyList.size()&& i<20; i++) {
+                Element ImageBestBuy = null;
+                if (BestBuyList.get(i).select("div.list-item-thumbnail > div > a > img").size() > 0) {
+                    ImageBestBuy = BestBuyList.get(i).select("div.list-item-thumbnail > div > a > img").get(0);
+                } else {
+                    continue;
+                }
+
                 Element TitleBestBuy = BestBuyList.get(i).select("div.sku-title > h4 > a").get(0);
                 TitleBestBuy.absUrl("bestbuy.com");
                 Element PriceBestBuy = BestBuyList.get(i).select("div.pb-hero-price.pb-purchase-price > span").get(0);
                 // make absolute url----
                 String absUrl = TitleBestBuy.absUrl("href");
-                TitleBestBuy.attr("href", absUrl);
+                TitleBestBuy.attr("href", absUrl).attr("target", "_blank").attr("rel", "nofollow");
                 //------
                 String StringTitleBestBuy = String.valueOf(TitleBestBuy);
-                String StringImageBestBuy = ImageBestBuy.attr("src");
+                String StringImageBestBuy = "";
+                if (ImageBestBuy != null) {
+                    StringImageBestBuy = ImageBestBuy.attr("src");
+                }
                 String StringPriceBestBuy = PriceBestBuy.text();
-
                 BestBuyItems.add(new ItemVO(StringTitleBestBuy, StringImageBestBuy, StringPriceBestBuy));
 
             }
