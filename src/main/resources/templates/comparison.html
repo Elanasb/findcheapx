@@ -25,6 +25,9 @@
 
 
 
+
+
+
     </style>
 
     <meta charset="UTF-8"/>
@@ -34,7 +37,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"/>
-    <link href="searchbar.css" rel="stylesheet"/>
+
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <style>
@@ -43,14 +46,14 @@
 }
 
 body {
-    margin: 20px;
+    margin: 10px;
 }
 
 /* Create two equal columns that floats next to each other */
 .column {
     float: left;
     width: 50%;
-    padding: 10px;
+    padding: 20px;
 
 
 }
@@ -62,15 +65,27 @@ body {
     clear: both;
 }
 
+#grad1 {
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#eaeaea+0,cecccc+97 */
+background: #eaeaea; /* Old browsers */
+background: -moz-linear-gradient(-45deg, #eaeaea 0%, #cecccc 97%); /* FF3.6-15 */
+background: -webkit-linear-gradient(-45deg, #eaeaea 0%,#cecccc 97%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(135deg, #eaeaea 0%,#cecccc 97%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eaeaea', endColorstr='#cecccc',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
+border-radius: 50px;
+}
+.between{
+background-color: black;
+}
 
 
     </style>
 </head>
 <body>
 
-<h1>
-    <center>Find Cheap</center>
-</h1>
+<center><img src="https://cdn.shopify.com/tools/logo-maker/show/RnRYQmRsZkVKaFFLZG1yYmJQTVlRUT09LS1sRGtjcmpUM1N3NVNiai9zeHF6MmdnPT0=--391632ec2cee28c76e2fc903aaf4ecb764b77f2a_1000x.svg.png" width="300"></center>
+
 
 
 <div class="container">
@@ -79,15 +94,15 @@ body {
         <div class="col-sm-6 col-sm-offset-3">
             <div id="imaginary_container">
                 <div class="input-group stylish-input-group">
-                    <form action="#" th:action="@{/comparison}"  method="get">
-                        <input type="text" name="search" id="search" th:value="${search}"/>
-                        <span class="input-group-addon">
-                        <button type="submit">
+                    <form action="#" th:action="@{/comparison}" method="get">
+                        <input type="text" name="search" id="search" th:value="${search}" class="form-control"/>
 
+                    </form>
+                    <span class="input-group-addon">
+                        <button type="submit">
                             <span class="glyphicon glyphicon-search"></span>
                         </button>
                     </span>
-                    </form>
                 </div>
             </div>
         </div>
@@ -99,14 +114,15 @@ body {
     </p>
 </div>
 
-<div class="row">
-    <div class="column" style="background-color:#aaa;">
-        <img src= "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/EBay_former_logo.svg/2000px-EBay_former_logo.svg.png" width="130" height="75">
-        <div style ="height:500px" th:each="ebayItem: ${ebayItems}">
+<div  id="grad1" class="row">
+    <div class="column" >
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/EBay_former_logo.svg/2000px-EBay_former_logo.svg.png"
+             width="130" height="75">
+        <div style="height:500px" th:each="ebayItem: ${ebayItems}">
             <br/>
             <br/>
             <br/>
-            <div style="inline-block" hight="50">
+            <div style="inline-block" hight="50" >
                 <hr class="between" />
             </div>
             <h1 th:utext="${ebayItem.name}"></h1>
@@ -114,14 +130,15 @@ body {
             <h1 th:text="${ebayItem.price}"></h1>
         </div>
     </div>
-    <div class="column" style="background-color:#bbb;">
-        <img src= "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Best_Buy_Logo.svg/1200px-Best_Buy_Logo.svg.png" width="130" height="75">
-        <div style ="height:500px" th:each="BestBuyItems: ${BestBuyItems}">
+    <div class="column" >
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Best_Buy_Logo.svg/1200px-Best_Buy_Logo.svg.png"
+             width="130" height="75">
+        <div style="height:500px" th:each="BestBuyItems: ${BestBuyItems}">
             <br/>
             <br/>
             <br/>
             <div style="inline-block" hight="50">
-                <hr class="between" />
+                <hr class="between"/>
             </div>
             <h1 th:utext="${BestBuyItems.name}"></h1>
             <img th:src="${BestBuyItems.img}"/>

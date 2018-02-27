@@ -1,7 +1,8 @@
 package lt.findxcheap.pirmas.controller;
 
 import com.sun.xml.internal.ws.util.Pool;
-import lt.findxcheap.pirmas.ItemVo;
+import lt.findxcheap.pirmas.ItemVO;
+import lt.findxcheap.pirmas.ItemVO;
 import lt.findxcheap.pirmas.Table;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -20,9 +21,9 @@ public class ComparisonController {
     public static final String FailovardasEbay = "src/main/resources/templates/ebay.html";
     public static final String FailovardasAmazon = "src/main/resources/templates/amazon.html";
 
-    public ArrayList<ItemVo> ebayItems = new ArrayList<ItemVo>();
-    public ArrayList<ItemVo> amazonItems = new ArrayList<ItemVo>();
-    public ArrayList<ItemVo> BestBuyItems = new ArrayList<ItemVo>();
+    public ArrayList<ItemVO> ebayItems = new ArrayList<ItemVO>();
+    public ArrayList<ItemVO> amazonItems = new ArrayList<ItemVO>();
+    public ArrayList<ItemVO> BestBuyItems = new ArrayList<ItemVO>();
 
     @RequestMapping("/comparison")
     String index(
@@ -50,15 +51,14 @@ public class ComparisonController {
         {
 
             docEbay = Jsoup.connect(webPageEbay).get();
-            docAmazon = Jsoup.connect(webPageAmazon).get();
             docBB = Jsoup.connect(webPageBestBuy).get();
 
 
             Elements ebayList = docEbay.select("#ListViewInner > li");
             Elements BestBuyList = docBB.select("#resultsTabPanel > div.list-items > div");
 
-            ebayItems = new ArrayList<ItemVo>();
-            BestBuyItems = new ArrayList<ItemVo>();
+            ebayItems = new ArrayList<ItemVO>();
+            BestBuyItems = new ArrayList<ItemVO>();
 
             if (ebayList.size() > BestBuyList.size()) {
                 dydis = BestBuyList.size();
@@ -67,25 +67,31 @@ public class ComparisonController {
             }
 
 
-            for (int i = 0; i < dydis; i++) {
+            for (int i = 0; i < 20; i++) {
                 Element Image = ebayList.get(i).select("a > img").get(0);
                 Element Title = ebayList.get(i).select(" h3 > a").get(0);
                 Element Price = ebayList.get(i).select("ul.lvprices.left.space-zero > li.lvprice.prc").get(0);
                 String StringTitle = String.valueOf(Title);
                 String StringImage = Image.attr("src");
                 String StringPrice = Price.text();
-                ebayItems.add(new ItemVo(StringTitle, StringImage, StringPrice));
+                ebayItems.add(new ItemVO(StringTitle, StringImage, StringPrice));
             }
 
 
-            for (int i = 0; i < dydis; i++) {
+            for (int i = 0; i < 20; i++) {
                 Element ImageBestBuy = BestBuyList.get(i).select("div.list-item-thumbnail > div > a > img").get(0);
                 Element TitleBestBuy = BestBuyList.get(i).select("div.sku-title > h4 > a").get(0);
+                TitleBestBuy.absUrl("bestbuy.com");
                 Element PriceBestBuy = BestBuyList.get(i).select("div.pb-hero-price.pb-purchase-price > span").get(0);
+                // make absolute url----
+                String absUrl = TitleBestBuy.absUrl("href");
+                TitleBestBuy.attr("href", absUrl);
+                //------
                 String StringTitleBestBuy = String.valueOf(TitleBestBuy);
                 String StringImageBestBuy = ImageBestBuy.attr("src");
                 String StringPriceBestBuy = PriceBestBuy.text();
-                BestBuyItems.add(new ItemVo(StringTitleBestBuy, StringImageBestBuy, StringPriceBestBuy));
+
+                BestBuyItems.add(new ItemVO(StringTitleBestBuy, StringImageBestBuy, StringPriceBestBuy));
 
             }
 
